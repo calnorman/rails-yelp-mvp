@@ -10,10 +10,12 @@ class RestaurantsController < ApplicationController
   end
 
   def chef
-    @chef_name
+    @chef_name = @restaurant.chef_name
   end
 
   def show
+    @restaurant = Restaurant.find(params[:id])
+    @review = Review.new
   end
 
   def new
@@ -21,6 +23,12 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
+  end
+
+  private
+
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :phone_number, :category)
   end
 
 end
